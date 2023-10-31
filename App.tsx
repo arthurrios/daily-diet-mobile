@@ -7,8 +7,8 @@ import {
   Nunito_400Regular,
   Nunito_700Bold,
 } from '@expo-google-fonts/nunito'
-import { Home } from '@screens/Home'
 import { Loading } from '@components/Loading'
+import { Routes } from '@routes/index'
 
 export default function App() {
   const [fontsLoaded] = useFonts({ Nunito_400Regular, Nunito_700Bold })
@@ -16,7 +16,7 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <StatusBar style="dark" translucent backgroundColor="transparent" />
-      {fontsLoaded ? <Home /> : <Loading />}
+      {fontsLoaded ? <Routes /> : <Loading />}
     </ThemeProvider>
   )
 }
