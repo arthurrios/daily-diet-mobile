@@ -13,7 +13,7 @@ export function Home() {
       <Balance percentage="90,86" />
 
       <ButtonLabel>Refeições</ButtonLabel>
-      <Button title="Nova refeição" icon={<Plus size={18} color="#FFF" />} />
+      <Button title="New meal" icon={<Plus size={18} color="#FFF" />} />
 
       <DayList date="02.11.23" />
       <DayList date="01.11.23" />

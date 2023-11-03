@@ -1,9 +1,9 @@
 import styled, { css } from 'styled-components/native'
-import { BalanceStyleProps } from '@components/Balance/styles'
+import { HealthStyleProps } from '@components/Balance/styles'
 import { Text, TouchableOpacity } from 'react-native'
 
 type Props = {
-  type: BalanceStyleProps
+  type: HealthStyleProps
 }
 
 export const Container = styled(TouchableOpacity)`

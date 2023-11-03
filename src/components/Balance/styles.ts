@@ -2,10 +2,10 @@ import { ArrowUpRight } from 'phosphor-react-native'
 import { TouchableOpacity } from 'react-native'
 import styled, { css } from 'styled-components/native'
 
-export type BalanceStyleProps = 'HEALTHY' | 'UNHEALTHY'
+export type HealthStyleProps = 'HEALTHY' | 'UNHEALTHY'
 
 type Props = {
-  type: BalanceStyleProps
+  type: HealthStyleProps
 }
 export const Container = styled(TouchableOpacity)<Props>`
   margin-top: 32px;

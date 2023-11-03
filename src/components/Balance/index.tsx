@@ -1,6 +1,6 @@
 import {
   Arrow,
-  BalanceStyleProps,
+  HealthStyleProps,
   Container,
   Percentage,
   Subtitle,
@@ -8,7 +8,7 @@ import {
 import { TouchableOpacityProps } from 'react-native'
 
 type Props = TouchableOpacityProps & {
-  type?: BalanceStyleProps
+  type?: HealthStyleProps
   percentage?: string
 }
 

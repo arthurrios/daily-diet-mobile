@@ -1,4 +1,4 @@
-import { BalanceStyleProps } from '@components/Balance/styles'
+import { HealthStyleProps } from '@components/Balance/styles'
 import { Arrow, Container, Main, Percentage, Subtitle, Title } from './styles'
 import { View } from 'react-native'
 import { ButtonIcon } from '@components/ButtonIcon'
@@ -6,7 +6,7 @@ import { StatsCard } from '@components/StatsCard'
 import { HealthStatsCard } from '@components/HealthStatsCard'
 
 type Props = {
-  type?: BalanceStyleProps
+  type?: HealthStyleProps
   percentage?: string
 }
 
@@ -16,7 +16,13 @@ export function Stats({ percentage, type = 'HEALTHY' }: Props) {
       <ButtonIcon icon={<Arrow type={type} />} />
       <Percentage>90,86%</Percentage>
       <Subtitle>of meals within diet</Subtitle>
-      <Main>
+      <Main
+        style={{
+          shadowOpacity: 0.05,
+          shadowColor: '#000',
+          shadowRadius: 30,
+        }}
+      >
         <Title>General stats</Title>
         <View style={{ gap: 12 }}>
           <StatsCard stats={22} subtitle="best dish sequence within diet" />

@@ -1,9 +1,9 @@
 import { TouchableOpacityProps, View } from 'react-native'
 import { Container, Line, Status, Time, Title } from './styles'
-import { BalanceStyleProps } from '@components/Balance/styles'
+import { HealthStyleProps } from '@components/Balance/styles'
 
 type Props = TouchableOpacityProps & {
-  type: BalanceStyleProps
+  type: HealthStyleProps
   time: string
   title: string
 }
