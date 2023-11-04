@@ -43,7 +43,7 @@ export function MealForm() {
             <Input label="Time" keyboardType="numeric" placeholder="16:00" />
           </View>
           <View>
-            <Label>Within diet?</Label>
+            <Label>On diet?</Label>
             <View style={{ flexDirection: 'row', gap: 20, width: '100%' }}>
               <Select
                 type="HEALTHY"
