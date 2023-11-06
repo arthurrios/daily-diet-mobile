@@ -1,10 +1,6 @@
 import styled, { css } from 'styled-components/native'
-import { HealthStyleProps } from '@components/Balance/styles'
+// import { HealthStyleProps } from '@components/Balance/styles'
 import { ArrowLeft } from 'phosphor-react-native'
-
-type Props = {
-  type: HealthStyleProps
-}
 
 export const Container = styled.View`
   position: relative;

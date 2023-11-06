@@ -12,7 +12,7 @@ export function Button({ icon, type = 'FILL', title, ...props }: Props) {
   return (
     <Container type={type} {...props}>
       {icon}
-      <Title>{title}</Title>
+      <Title type={type}>{title}</Title>
     </Container>
   )
 }

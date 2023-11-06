@@ -6,7 +6,7 @@ import { Select } from '@components/Select'
 import { Button } from '@components/Button'
 import { useState } from 'react'
 
-export function MealForm() {
+export function AddMeal() {
   const [healthy, setHealthy] = useState(false)
   const [unhealthy, setUnhealthy] = useState(false)
 

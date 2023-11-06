@@ -8,10 +8,15 @@ type Props = {
 }
 
 export const Container = styled(TouchableOpacity)<Props>`
+  ${({ theme, type }) => css`
+    border: ${type === 'OUTLINE' && theme.COLORS.GRAY_700};
+  `}
+
   width: 100%;
   flex-direction: row;
   justify-content: center;
   gap: 12px;
+  align-items: center;
 
   padding: 16px 24px;
   border-radius: 6px;
@@ -20,9 +25,9 @@ export const Container = styled(TouchableOpacity)<Props>`
     type === 'FILL' ? theme.COLORS.GRAY_600 : 'transparent'};
 `
 
-export const Title = styled.Text`
-  ${({ theme }) => css`
-    color: ${theme.COLORS.WHITE};
+export const Title = styled.Text<Props>`
+  ${({ theme, type }) => css`
+    color: ${type === 'FILL' ? theme.COLORS.WHITE : theme.COLORS.GRAY_700};
     font-family: ${theme.FONT_FAMILY.BOLD};
     font-size: ${theme.FONT_SIZE.SM}px;
   `}
