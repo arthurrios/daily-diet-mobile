@@ -6,10 +6,18 @@ import { Select } from '@components/Select'
 import { Button } from '@components/Button'
 import { useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
+import { getCurrentDateTime } from '@utils/getCurrentDateTime'
 
 export function AddMeal() {
   const [healthy, setHealthy] = useState(false)
   const [unhealthy, setUnhealthy] = useState(false)
+
+  const { dateTime, hourTime } = getCurrentDateTime()
+  const [time, setTime] = useState(hourTime)
+  const [date, setDate] = useState(dateTime)
+
+  const [name, setName] = useState('')
+  const [description, setDescription] = useState('')
 
   const navigation = useNavigation()
 
@@ -41,15 +49,26 @@ export function AddMeal() {
         }}
       >
         <Form>
-          <Input label="Name" />
-          <Input label="Description" size="TEXTAREA" multiline />
+          <Input label="Name" onChangeText={setName} />
+          <Input
+            label="Description"
+            size="TEXTAREA"
+            multiline
+            onChangeText={setDescription}
+          />
           <View style={{ flexDirection: 'row', gap: 20 }}>
             <Input
               label="Date"
-              keyboardType="numeric"
-              placeholder="12/10/2023"
+              keyboardType="numbers-and-punctuation"
+              placeholder="MM/DD/YYYY"
+              value={date}
             />
-            <Input label="Time" keyboardType="numeric" placeholder="16:00" />
+            <Input
+              label="Time"
+              keyboardType="numbers-and-punctuation"
+              placeholder="16:00"
+              value={time}
+            />
           </View>
           <View>
             <Label>On diet?</Label>

@@ -1,10 +1,9 @@
 import moment from 'moment'
 
 export function getCurrentDateTime() {
-  const day = moment().format('DD')
-  const month = moment().format('MM')
-  const year = moment().format('YYYY')
-  const time = moment().format('LT')
+  const dateTime = moment().format('L')
+  const timeUSFormat = moment().format('LT')
+  const hourTime = moment().format('HH:mm')
 
-  return { day, month, year, time }
+  return { dateTime, timeUSFormat, hourTime }
 }
