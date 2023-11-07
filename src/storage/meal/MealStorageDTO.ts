@@ -1,8 +1,7 @@
-import moment from 'moment'
-
 export type MealStorageDTO = {
   name: string
   description: string
-  datetime: moment.Moment
+  date: string
+  time: string
   healthy: boolean
 }

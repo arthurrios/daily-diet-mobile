@@ -9,8 +9,7 @@ import { useNavigation } from '@react-navigation/native'
 import { getCurrentDateTime } from '@utils/getCurrentDateTime'
 import { AppError } from '@utils/AppError'
 import { mealCreate } from '@storage/meal/mealCreate'
-import moment from 'moment'
-import { formatToMomentDate } from '@utils/formatToMomentDate'
+import { formatToMomentFormatDate } from '@utils/formatToMomentFormatDate'
 import { mealsGetAll } from '@storage/meal/mealsGetAll'
 
 export function AddMeal() {
@@ -58,17 +57,20 @@ export function AddMeal() {
         return Alert.alert('New Meal', 'Please enter a time')
       }
 
-      const momentDate = moment.utc(formatToMomentDate(date, time))
+      const momentDate = formatToMomentFormatDate(date)
 
       await mealCreate({
         name,
         description,
-        datetime: momentDate,
+        date: momentDate,
+        time,
         healthy,
       })
 
       const data = await mealsGetAll()
       console.log(data)
+
+      navigation.navigate('home')
     } catch (error) {
       if (error instanceof AppError) {
         Alert.alert('New Meal', error.message)
