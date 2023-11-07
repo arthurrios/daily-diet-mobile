@@ -12,11 +12,11 @@ export const Container = styled(TouchableOpacity)<Props>`
     border: ${type === 'OUTLINE' && theme.COLORS.GRAY_700};
   `}
 
-  width: 100%;
   flex-direction: row;
   justify-content: center;
   gap: 12px;
   align-items: center;
+  height: 50px;
 
   padding: 16px 24px;
   border-radius: 6px;

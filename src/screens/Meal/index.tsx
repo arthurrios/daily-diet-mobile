@@ -15,16 +15,36 @@ import { View } from 'react-native'
 import { PencilSimpleLine, Trash } from 'phosphor-react-native'
 import { Button } from '@components/Button'
 import { useTheme } from 'styled-components/native'
+import { useState } from 'react'
+import { Modal } from '@components/Modal'
 
 type Props = {
   type?: HealthStyleProps
 }
 
 export function Meal({ type = 'UNHEALTHY' }: Props) {
+  const [modalVisible, setModalVisible] = useState(true)
+
   const { COLORS, FONT_SIZE } = useTheme()
 
   return (
     <Container type={type}>
+      <Modal
+        visible={modalVisible}
+        onRequestClose={() => setModalVisible(!modalVisible)}
+        key={null}
+        type={''}
+        props={undefined}
+        title="Do you really want to delete this meal?"
+      >
+        <Button
+          type="OUTLINE"
+          title="Cancel"
+          style={{ flex: 1 }}
+          onPress={() => setModalVisible(!modalVisible)}
+        />
+        <Button type="FILL" title="Delete" style={{ flex: 1 }} />
+      </Modal>
       <ButtonIcon icon={<Arrow type={type} />} />
       <Title>Meal</Title>
       <Main
@@ -68,6 +88,7 @@ export function Meal({ type = 'UNHEALTHY' }: Props) {
             type="OUTLINE"
             title="Delete meal"
             icon={<Trash color={COLORS.GRAY_700} />}
+            onPress={() => setModalVisible(true)}
           />
         </View>
       </Main>
