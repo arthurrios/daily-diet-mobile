@@ -1,5 +1,5 @@
 import { Arrow, Container, Form, Header, Label, Main, Title } from './styles'
-import { View } from 'react-native'
+import { Alert, View } from 'react-native'
 import { ButtonIcon } from '@components/ButtonIcon'
 import { Input } from '@components/Input'
 import { Select } from '@components/Select'
@@ -7,6 +7,11 @@ import { Button } from '@components/Button'
 import { useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { getCurrentDateTime } from '@utils/getCurrentDateTime'
+import { AppError } from '@utils/AppError'
+import { mealCreate } from '@storage/meal/mealCreate'
+import moment from 'moment'
+import { formatToMomentDate } from '@utils/formatToMomentDate'
+import { mealsGetAll } from '@storage/meal/mealsGetAll'
 
 export function AddMeal() {
   const [healthy, setHealthy] = useState(false)
@@ -33,6 +38,44 @@ export function AddMeal() {
   function handleUnhealthy() {
     setUnhealthy(!unhealthy)
     setHealthy(false)
+  }
+
+  async function handleNew() {
+    try {
+      if (name.trim().length === 0) {
+        return Alert.alert('New Meal', 'Please enter a name')
+      }
+
+      if (description.trim().length === 0) {
+        return Alert.alert('New Meal', 'Please enter a description')
+      }
+
+      if (date.trim().length === 0) {
+        return Alert.alert('New Meal', 'Please enter a date')
+      }
+
+      if (time.trim().length === 0) {
+        return Alert.alert('New Meal', 'Please enter a time')
+      }
+
+      const momentDate = moment.utc(formatToMomentDate(date, time))
+
+      await mealCreate({
+        name,
+        description,
+        datetime: momentDate,
+        healthy,
+      })
+
+      const data = await mealsGetAll()
+      console.log(data)
+    } catch (error) {
+      if (error instanceof AppError) {
+        Alert.alert('New Meal', error.message)
+      } else {
+        Alert.alert('New Meal', 'It was not possible to register a new meal.')
+      }
+    }
   }
 
   return (
@@ -62,12 +105,14 @@ export function AddMeal() {
               keyboardType="numbers-and-punctuation"
               placeholder="MM/DD/YYYY"
               value={date}
+              onChangeText={setDate}
             />
             <Input
               label="Time"
               keyboardType="numbers-and-punctuation"
               placeholder="16:00"
               value={time}
+              onChangeText={setTime}
             />
           </View>
           <View>
@@ -86,7 +131,7 @@ export function AddMeal() {
             </View>
           </View>
         </Form>
-        <Button title="Register meal" />
+        <Button title="Register meal" onPress={handleNew} />
       </Main>
     </Container>
   )
