@@ -6,7 +6,13 @@ export const Container = styled.View`
   position: relative;
   padding-top: 70px;
   flex: 1;
+  width: 100%;
   background-color: ${({ theme }) => theme.COLORS.GRAY_300};
+`
+
+export const Header = styled.View`
+  flex-direction: row;
+  justify-content: center;
 `
 
 export const Arrow = styled(ArrowLeft).attrs(({ theme }) => ({
@@ -14,7 +20,6 @@ export const Arrow = styled(ArrowLeft).attrs(({ theme }) => ({
   color: theme.COLORS.GRAY_600,
 }))`
   position: absolute;
-  left: 32px;
 `
 export const Title = styled.Text`
   ${({ theme }) => css`
@@ -22,6 +27,7 @@ export const Title = styled.Text`
     font-family: ${theme.FONT_FAMILY.BOLD};
     font-size: ${theme.FONT_SIZE.LG}px;
   `}
+
   text-align: center;
   margin-bottom: 26px;
 `

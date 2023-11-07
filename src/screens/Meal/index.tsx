@@ -17,15 +17,22 @@ import { Button } from '@components/Button'
 import { useTheme } from 'styled-components/native'
 import { useState } from 'react'
 import { Modal } from '@components/Modal'
+import { useNavigation } from '@react-navigation/native'
 
 type Props = {
   type?: HealthStyleProps
 }
 
 export function Meal({ type = 'UNHEALTHY' }: Props) {
-  const [modalVisible, setModalVisible] = useState(true)
+  const [modalVisible, setModalVisible] = useState(false)
+
+  const navigation = useNavigation()
 
   const { COLORS, FONT_SIZE } = useTheme()
+
+  function handleGoBack() {
+    navigation.navigate('home')
+  }
 
   return (
     <Container type={type}>
@@ -45,7 +52,7 @@ export function Meal({ type = 'UNHEALTHY' }: Props) {
         />
         <Button type="FILL" title="Delete" style={{ flex: 1 }} />
       </Modal>
-      <ButtonIcon icon={<Arrow type={type} />} />
+      <ButtonIcon icon={<Arrow type={type} />} onPress={handleGoBack} />
       <Title>Meal</Title>
       <Main
         style={{

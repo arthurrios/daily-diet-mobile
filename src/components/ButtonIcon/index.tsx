@@ -6,6 +6,6 @@ type Props = TouchableOpacityProps & {
   icon: ReactElement
 }
 
-export function ButtonIcon({ icon }: Props) {
-  return <Container>{icon}</Container>
+export function ButtonIcon({ icon, ...props }: Props) {
+  return <Container {...props}>{icon}</Container>
 }

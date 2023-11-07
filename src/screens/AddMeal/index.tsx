@@ -1,14 +1,21 @@
-import { Arrow, Container, Form, Label, Main, Title } from './styles'
+import { Arrow, Container, Form, Header, Label, Main, Title } from './styles'
 import { View } from 'react-native'
 import { ButtonIcon } from '@components/ButtonIcon'
 import { Input } from '@components/Input'
 import { Select } from '@components/Select'
 import { Button } from '@components/Button'
 import { useState } from 'react'
+import { useNavigation } from '@react-navigation/native'
 
 export function AddMeal() {
   const [healthy, setHealthy] = useState(false)
   const [unhealthy, setUnhealthy] = useState(false)
+
+  const navigation = useNavigation()
+
+  function handleGoBack() {
+    navigation.navigate('home')
+  }
 
   function handleHealthy() {
     setHealthy(!healthy)
@@ -22,8 +29,10 @@ export function AddMeal() {
 
   return (
     <Container>
-      <ButtonIcon icon={<Arrow />} />
-      <Title>New Meal</Title>
+      <Header>
+        <ButtonIcon icon={<Arrow />} onPress={handleGoBack} />
+        <Title>New Meal</Title>
+      </Header>
       <Main
         style={{
           shadowOpacity: 0.05,
