@@ -18,7 +18,13 @@ export const Container = styled(TouchableOpacity)`
   justify-content: space-between;
   border-radius: 6px;
 `
-export const Time = styled.Text``
+export const Time = styled.Text`
+  ${({ theme }) => css`
+    color: ${theme.COLORS.GRAY_700};
+    font-family: ${theme.FONT_FAMILY.BOLD};
+    font-size: ${theme.FONT_SIZE.XS}px;
+  `}
+`
 export const Line = styled.View`
   width: 1px;
   height: 14px;

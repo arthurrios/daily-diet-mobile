@@ -6,7 +6,6 @@ import { Plus } from 'phosphor-react-native'
 import { DayList } from '@components/DayList'
 import { useFocusEffect, useNavigation } from '@react-navigation/native'
 import { useCallback, useState } from 'react'
-import { MealStorageDTO } from '@storage/meal/MealStorageDTO'
 import { Alert, FlatList } from 'react-native'
 import { mealsGetAll } from '@storage/meal/mealsGetAll'
 import { formatMomentDate } from '@utils/formatMomentDate'
@@ -27,8 +26,6 @@ export function Home() {
       const groupByDate = Array.from(new Set(data.flatMap((meal) => meal.date)))
 
       const formattedDates = groupByDate.map((date) => formatMomentDate(date))
-
-      console.log(formattedDates)
 
       setDates(formattedDates)
     } catch (error) {
