@@ -12,7 +12,7 @@ import { mealsGetAll } from '@storage/meal/mealsGetAll'
 import { formatMomentDate } from '@utils/formatMomentDate'
 
 export function Home() {
-  const [meals, setMeals] = useState<MealStorageDTO[]>([])
+  const [dates, setDates] = useState<string[]>([])
 
   const navigation = useNavigation()
 
@@ -24,12 +24,13 @@ export function Home() {
     try {
       const data = await mealsGetAll()
 
-      const dataWithFormattedDate = data.map(({ date, ...rest }) => ({
-        ...rest,
-        date: formatMomentDate(date),
-      }))
+      const groupByDate = Array.from(new Set(data.flatMap((meal) => meal.date)))
 
-      setMeals(dataWithFormattedDate)
+      const formattedDates = groupByDate.map((date) => formatMomentDate(date))
+
+      console.log(formattedDates)
+
+      setDates(formattedDates)
     } catch (error) {
       console.log(error)
       Alert.alert('Meals', 'Error fetching meals')
@@ -45,6 +46,7 @@ export function Home() {
   useFocusEffect(
     useCallback(() => {
       fetchMeals()
+      // clearAllData()
     }, []),
   )
 
@@ -62,9 +64,9 @@ export function Home() {
       />
 
       <FlatList
-        keyExtractor={(item) => item.id}
-        data={meals.sort((a, b) => b.date.localeCompare(a.date))}
-        renderItem={({ item }) => <DayList date={item.date} />}
+        keyExtractor={(item) => item}
+        data={dates.sort((a, b) => b.localeCompare(a))}
+        renderItem={({ item }) => <DayList date={item} />}
       />
     </Container>
   )
