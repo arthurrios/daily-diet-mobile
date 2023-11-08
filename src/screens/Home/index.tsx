@@ -48,23 +48,30 @@ export function Home() {
   )
 
   return (
-    <Container>
-      <Header />
+    <>
+      <Container edges={{ bottom: 'off', top: 'maximum' }}>
+        <Header />
 
-      <Balance percentage="90,86" />
+        <Balance percentage="90,86" />
 
-      <ButtonLabel>Refeições</ButtonLabel>
-      <Button
-        title="New meal"
-        icon={<Plus size={18} color="#FFF" />}
-        onPress={handleAddMeal}
-      />
+        <ButtonLabel>Refeições</ButtonLabel>
+        <Button
+          title="New meal"
+          icon={<Plus size={18} color="#FFF" />}
+          onPress={handleAddMeal}
+        />
 
-      <FlatList
-        keyExtractor={(item) => item}
-        data={dates.sort((a, b) => b.localeCompare(a))}
-        renderItem={({ item }) => <DayList date={item} />}
-      />
-    </Container>
+        <FlatList
+          keyExtractor={(item) => item}
+          data={dates.sort((a, b) => b.localeCompare(a))}
+          style={{ marginTop: 32 }}
+          renderItem={({ item }) => <DayList date={item} />}
+        />
+      </Container>
+      {/* <LinearGradientView
+        colors={[COLORS.GRAY_100, 'transparent']}
+        end={{ x: 1, y: 1 }}
+      /> */}
+    </>
   )
 }

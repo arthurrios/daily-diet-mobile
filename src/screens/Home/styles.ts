@@ -1,10 +1,11 @@
 import { SafeAreaView } from 'react-native-safe-area-context'
 import styled, { css } from 'styled-components/native'
+import { LinearGradient } from 'expo-linear-gradient'
 
 export const Container = styled(SafeAreaView)`
-  flex: 1;
   background-color: ${({ theme }) => theme.COLORS.GRAY_100};
-  padding: 24px;
+  flex: 1;
+  padding: 0 24px;
 `
 
 export const ButtonLabel = styled.Text`
@@ -14,4 +15,11 @@ export const ButtonLabel = styled.Text`
     font-size: ${theme.FONT_SIZE.MD}px;
   `}
   margin-bottom: 8px;
+`
+export const LinearGradientView = styled(LinearGradient)`
+  height: 48px;
+  width: 100%;
+  z-index: 1;
+  position: 'absolute';
+  bottom: 0;
 `

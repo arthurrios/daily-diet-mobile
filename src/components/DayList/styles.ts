@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components/native'
 
 export const Container = styled.View`
-  margin-top: 32px;
+  margin-bottom: 32px;
   gap: 8px;
 `
 

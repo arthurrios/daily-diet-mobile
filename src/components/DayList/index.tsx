@@ -35,7 +35,7 @@ export function DayList({ date }: Props) {
     <Container>
       <Date>{date}</Date>
       <FlatList
-        data={mealsByDate}
+        data={mealsByDate.sort((a, b) => b.time.localeCompare(a.time))}
         keyExtractor={(item) => item.id}
         style={{ gap: 8 }}
         renderItem={({ item }) => (
