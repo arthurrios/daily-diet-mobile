@@ -10,7 +10,7 @@ import { getCurrentDateTime } from '@utils/getCurrentDateTime'
 import { AppError } from '@utils/AppError'
 import { mealCreate } from '@storage/meal/mealCreate'
 import { formatToMomentFormatDate } from '@utils/formatToMomentFormatDate'
-import { mealsGetAll } from '@storage/meal/mealsGetAll'
+import uuid from 'react-native-uuid'
 
 export function AddMeal() {
   const [healthy, setHealthy] = useState(false)
@@ -60,15 +60,13 @@ export function AddMeal() {
       const momentDate = formatToMomentFormatDate(date)
 
       await mealCreate({
+        id: uuid.v4().toString(),
         name,
         description,
         date: momentDate,
         time,
         healthy,
       })
-
-      const data = await mealsGetAll()
-      console.log(data)
 
       navigation.navigate('home')
     } catch (error) {
