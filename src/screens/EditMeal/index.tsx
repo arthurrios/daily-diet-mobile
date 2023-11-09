@@ -1,12 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-useless-catch */
 import { Arrow, Container, Form, Header, Label, Main, Title } from './styles'
-import { View } from 'react-native'
+import { Alert, View } from 'react-native'
 import { ButtonIcon } from '@components/ButtonIcon'
 import { Input } from '@components/Input'
 import { Select } from '@components/Select'
 import { Button } from '@components/Button'
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import {
   useFocusEffect,
   useNavigation,
@@ -14,12 +14,16 @@ import {
 } from '@react-navigation/native'
 import { MealStorageDTO } from '@storage/meal/MealStorageDTO'
 import { formatStorageDate } from '@utils/formatStorageDate'
+import { AppError } from '@utils/AppError'
+import { mealEdit } from '@storage/meal/mealEdit'
+import { formatToMomentFormatDate } from '@utils/formatToMomentFormatDate'
 
 type RouteParams = {
   foodItem: MealStorageDTO
 }
 
 export function EditMeal() {
+  const [meal, setMeal] = useState<MealStorageDTO>({})
   const [healthy, setHealthy] = useState(false)
   const [unhealthy, setUnhealthy] = useState(false)
 
@@ -59,10 +63,63 @@ export function EditMeal() {
     navigation.goBack()
   }
 
+  async function handleEditMeal(meal: MealStorageDTO) {
+    try {
+      if (name.trim().length === 0) {
+        return Alert.alert('Edit Meal', 'Please enter a name')
+      }
+
+      if (description.trim().length === 0) {
+        return Alert.alert('Edit Meal', 'Please enter a description')
+      }
+
+      if (date.trim().length === 0) {
+        return Alert.alert('Edit Meal', 'Please enter a date')
+      }
+
+      if (time.trim().length === 0) {
+        return Alert.alert('Edit Meal', 'Please enter a time')
+      }
+
+      const momentDate = formatToMomentFormatDate(date)
+
+      await mealEdit({
+        id: foodItem.id,
+        name,
+        description,
+        date: momentDate,
+        time,
+        healthy,
+      })
+
+      navigation.navigate('meal', { foodItem: meal })
+    } catch (error) {
+      if (error instanceof AppError) {
+        Alert.alert('Edit Meal', error.message)
+      } else {
+        Alert.alert('Edit Meal', 'It was not possible to edit meal.')
+      }
+    }
+  }
+
+  useEffect(() => {
+    const momentDate = formatToMomentFormatDate(date)
+
+    setMeal({
+      id: foodItem.id,
+      name,
+      description,
+      date: momentDate,
+      time,
+      healthy,
+    })
+  }, [name, description, date, time, healthy])
+
   useFocusEffect(
     useCallback(() => {
       setHealthyBasedOnStorage(foodItem)
-    }, []),
+      setMeal(foodItem)
+    }, [foodItem]),
   )
 
   return (
@@ -119,7 +176,7 @@ export function EditMeal() {
             </View>
           </View>
         </Form>
-        <Button title="Save changes" />
+        <Button title="Save changes" onPress={() => handleEditMeal(meal)} />
       </Main>
     </Container>
   )

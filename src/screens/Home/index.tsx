@@ -9,6 +9,7 @@ import { useCallback, useState } from 'react'
 import { Alert, FlatList } from 'react-native'
 import { mealsGetAll } from '@storage/meal/mealsGetAll'
 import { formatMomentDate } from '@utils/formatMomentDate'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export function Home() {
   const [dates, setDates] = useState<string[]>([])

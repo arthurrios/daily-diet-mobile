@@ -11,16 +11,23 @@ import {
   Header,
 } from './styles'
 import { ButtonIcon } from '@components/ButtonIcon'
-import { View } from 'react-native'
+import { Alert, View } from 'react-native'
 import { PencilSimpleLine, Trash } from 'phosphor-react-native'
 import { Button } from '@components/Button'
 import { useTheme } from 'styled-components/native'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { Modal } from '@components/Modal'
-import { useNavigation, useRoute } from '@react-navigation/native'
+import {
+  useFocusEffect,
+  useNavigation,
+  useRoute,
+} from '@react-navigation/native'
 import { MealStorageDTO } from '@storage/meal/MealStorageDTO'
 import { formatStorageDate } from '@utils/formatStorageDate'
 import { formatTimeToUS } from '@utils/formatTimeToUS'
+import { mealsGetAll } from '@storage/meal/mealsGetAll'
+import { AppError } from '@utils/AppError'
+import { mealDelete } from '@storage/meal/mealDelete'
 
 type RouteParams = {
   foodItem: MealStorageDTO
@@ -41,6 +48,20 @@ export function Meal() {
 
   function handleEditMeal(foodItem: MealStorageDTO) {
     navigation.navigate('editMeal', { foodItem })
+  }
+
+  async function handleDelete(id: string) {
+    try {
+      await mealDelete(id)
+
+      navigation.navigate('home')
+    } catch (error) {
+      if (error instanceof AppError) {
+        Alert.alert('Delete Meal', error.message)
+      } else {
+        Alert.alert('Delete Meal', 'It was not possible to delete meal.')
+      }
+    }
   }
 
   return (
@@ -69,7 +90,12 @@ export function Meal() {
           style={{ flex: 1 }}
           onPress={() => setModalVisible(!modalVisible)}
         />
-        <Button type="FILL" title="Delete" style={{ flex: 1 }} />
+        <Button
+          type="FILL"
+          title="Delete"
+          style={{ flex: 1 }}
+          onPress={() => handleDelete(foodItem.id)}
+        />
       </Modal>
 
       <Main

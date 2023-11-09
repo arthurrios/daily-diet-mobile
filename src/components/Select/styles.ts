@@ -37,7 +37,7 @@ export const Status = styled.View<SelectTypeStyleProps>`
   width: 8px;
   border-radius: 999px;
   background-color: ${({ theme, type }) =>
-    type === 'HEALTHY' ? theme.COLORS.GREEN_200 : theme.COLORS.RED_200};
+    type === 'HEALTHY' ? theme.COLORS.GREEN_800 : theme.COLORS.RED_800};
 `
 
 export const Option = styled.Text`
