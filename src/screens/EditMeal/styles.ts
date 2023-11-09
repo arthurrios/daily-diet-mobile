@@ -1,10 +1,5 @@
 import styled, { css } from 'styled-components/native'
-import { HealthStyleProps } from '@components/Balance/styles'
 import { ArrowLeft } from 'phosphor-react-native'
-
-type Props = {
-  type: HealthStyleProps
-}
 
 export const Container = styled.View`
   position: relative;
@@ -13,12 +8,16 @@ export const Container = styled.View`
   background-color: ${({ theme }) => theme.COLORS.GRAY_300};
 `
 
+export const Header = styled.View`
+  flex-direction: row;
+  justify-content: center;
+`
+
 export const Arrow = styled(ArrowLeft).attrs(({ theme }) => ({
   size: 24,
   color: theme.COLORS.GRAY_600,
 }))`
   position: absolute;
-  left: 32px;
 `
 export const Title = styled.Text`
   ${({ theme }) => css`

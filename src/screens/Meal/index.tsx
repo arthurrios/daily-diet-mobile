@@ -39,6 +39,10 @@ export function Meal() {
     navigation.navigate('home')
   }
 
+  function handleEditMeal(foodItem: MealStorageDTO) {
+    navigation.navigate('editMeal', { foodItem })
+  }
+
   return (
     <Container
       edges={{ bottom: 'off', top: 'maximum' }}
@@ -112,6 +116,7 @@ export function Meal() {
             type="FILL"
             title="Edit meal"
             icon={<PencilSimpleLine color={COLORS.WHITE} />}
+            onPress={() => handleEditMeal(foodItem)}
           />
           <Button
             type="OUTLINE"

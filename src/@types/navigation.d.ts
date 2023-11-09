@@ -8,6 +8,9 @@ export declare global {
       meal: {
         foodItem: MealStorageDTO
       }
+      editMeal: {
+        foodItem: MealStorageDTO
+      }
     }
   }
 }
