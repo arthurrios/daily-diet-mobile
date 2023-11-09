@@ -8,9 +8,9 @@ type Props = TouchableOpacityProps & {
   title: string
 }
 
-export function FoodItem({ time, title, type }: Props) {
+export function FoodItem({ time, title, type, ...props }: Props) {
   return (
-    <Container>
+    <Container {...props}>
       <View style={{ flexDirection: 'row', gap: 12, alignItems: 'center' }}>
         <Time>{time}</Time>
         <Line />

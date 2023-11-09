@@ -1,26 +1,29 @@
 import styled, { css } from 'styled-components/native'
 import { HealthStyleProps } from '@components/Balance/styles'
 import { ArrowLeft } from 'phosphor-react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 type Props = {
   type: HealthStyleProps
 }
 
-export const Container = styled.View<Props>`
-  position: relative;
-  padding-top: 70px;
+export const Container = styled(SafeAreaView)<Props>`
   flex: 1;
   background-color: ${({ theme, type }) =>
     type === 'HEALTHY' ? theme.COLORS.GREEN_100 : theme.COLORS.RED_100};
 `
 
+export const Header = styled.View`
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 12px;
+`
+
 export const Arrow = styled(ArrowLeft).attrs<Props>(({ theme }) => ({
   size: 24,
   color: theme.COLORS.GRAY_600,
-}))`
-  position: absolute;
-  left: 32px;
-`
+}))``
+
 export const Info = styled.View`
   gap: 24px;
 `
@@ -42,8 +45,8 @@ export const Description = styled.Text`
     color: ${theme.COLORS.GRAY_600};
   `}
 `
-export const Main = styled.View`
-  padding: 40px 24px;
+export const Main = styled(SafeAreaView)`
+  padding: 40px 24px 0;
   flex: 1;
   border-radius: 20px;
   background-color: ${({ theme }) => theme.COLORS.GRAY_100};

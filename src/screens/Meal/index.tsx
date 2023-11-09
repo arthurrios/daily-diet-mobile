@@ -8,25 +8,30 @@ import {
   Status,
   StatusContainer,
   Option,
+  Header,
 } from './styles'
 import { ButtonIcon } from '@components/ButtonIcon'
-import { HealthStyleProps } from '@components/Balance/styles'
 import { View } from 'react-native'
 import { PencilSimpleLine, Trash } from 'phosphor-react-native'
 import { Button } from '@components/Button'
 import { useTheme } from 'styled-components/native'
 import { useState } from 'react'
 import { Modal } from '@components/Modal'
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation, useRoute } from '@react-navigation/native'
+import { MealStorageDTO } from '@storage/meal/MealStorageDTO'
+import { formatStorageDate } from '@utils/formatStorageDate'
+import { formatTimeToUS } from '@utils/formatTimeToUS'
 
-type Props = {
-  type?: HealthStyleProps
+type RouteParams = {
+  foodItem: MealStorageDTO
 }
 
-export function Meal({ type = 'UNHEALTHY' }: Props) {
+export function Meal() {
   const [modalVisible, setModalVisible] = useState(false)
 
   const navigation = useNavigation()
+  const route = useRoute()
+  const { foodItem } = route.params as RouteParams
 
   const { COLORS, FONT_SIZE } = useTheme()
 
@@ -35,7 +40,17 @@ export function Meal({ type = 'UNHEALTHY' }: Props) {
   }
 
   return (
-    <Container type={type}>
+    <Container
+      edges={{ bottom: 'off', top: 'maximum' }}
+      type={foodItem.healthy ? 'HEALTHY' : 'UNHEALTHY'}
+    >
+      <Header>
+        <ButtonIcon
+          icon={<Arrow type={foodItem.healthy ? 'HEALTHY' : 'UNHEALTHY'} />}
+          onPress={handleGoBack}
+        />
+        <Title>Meal</Title>
+      </Header>
       <Modal
         visible={modalVisible}
         onRequestClose={() => setModalVisible(!modalVisible)}
@@ -52,9 +67,9 @@ export function Meal({ type = 'UNHEALTHY' }: Props) {
         />
         <Button type="FILL" title="Delete" style={{ flex: 1 }} />
       </Modal>
-      <ButtonIcon icon={<Arrow type={type} />} onPress={handleGoBack} />
-      <Title>Meal</Title>
+
       <Main
+        edges={{ top: 'off', bottom: 'maximum' }}
         style={{
           shadowOpacity: 0.05,
           shadowColor: '#000',
@@ -64,9 +79,9 @@ export function Meal({ type = 'UNHEALTHY' }: Props) {
         <Info>
           <View>
             <Title style={{ textAlign: 'left', marginBottom: 8 }}>
-              X-Burger
+              {foodItem.name}
             </Title>
-            <Description>Bacon burger with onion rings and mayo</Description>
+            <Description>{foodItem.description}</Description>
           </View>
           <View>
             <Title
@@ -78,11 +93,18 @@ export function Meal({ type = 'UNHEALTHY' }: Props) {
             >
               Date and time
             </Title>
-            <Description>11/06/2023 at 4:00pm</Description>
+            <Description>
+              {formatStorageDate(foodItem.date)} at{' '}
+              {formatTimeToUS(foodItem.time)}
+            </Description>
           </View>
           <StatusContainer>
-            <Status type={type} />
-            <Option>{type === 'HEALTHY' ? 'on diet' : 'outside diet'}</Option>
+            <Status
+              type={foodItem.healthy === true ? 'HEALTHY' : 'UNHEALTHY'}
+            />
+            <Option>
+              {foodItem.healthy === true ? 'on diet' : 'outside diet'}
+            </Option>
           </StatusContainer>
         </Info>
         <View style={{ gap: 9 }}>

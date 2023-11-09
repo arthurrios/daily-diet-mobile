@@ -66,6 +66,7 @@ export function Home() {
           data={dates.sort((a, b) => b.localeCompare(a))}
           style={{ marginTop: 32 }}
           renderItem={({ item }) => <DayList date={item} />}
+          showsVerticalScrollIndicator={false}
         />
       </Container>
       {/* <LinearGradientView

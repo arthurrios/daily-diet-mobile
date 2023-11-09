@@ -3,7 +3,7 @@ import { FoodItem } from '@components/FoodItem'
 import { Container, Date } from './styles'
 import { Alert, FlatList } from 'react-native'
 import { mealsGetByDate } from '@storage/meal/mealsGetByDate'
-import { useFocusEffect } from '@react-navigation/native'
+import { useFocusEffect, useNavigation } from '@react-navigation/native'
 import { useCallback, useState } from 'react'
 import { MealStorageDTO } from '@storage/meal/MealStorageDTO'
 
@@ -13,6 +13,12 @@ type Props = {
 
 export function DayList({ date }: Props) {
   const [mealsByDate, setMealsByDate] = useState<MealStorageDTO[]>([])
+
+  const navigation = useNavigation()
+
+  function handleOpenItem(foodItem: MealStorageDTO) {
+    navigation.navigate('meal', { foodItem })
+  }
 
   async function fetchMealsByDate() {
     try {
@@ -43,8 +49,10 @@ export function DayList({ date }: Props) {
             title={item.name}
             time={item.time}
             type={item.healthy === true ? 'HEALTHY' : 'UNHEALTHY'}
+            onPress={() => handleOpenItem(item)}
           />
         )}
+        showsVerticalScrollIndicator={false}
       />
     </Container>
   )
