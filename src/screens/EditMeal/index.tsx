@@ -18,6 +18,8 @@ import { AppError } from '@utils/errors/AppError'
 import { mealEdit } from '@storage/meal/mealEdit'
 import { formatToMomentFormatDate } from '@utils/timeFormat/formatToMomentFormatDate'
 import { MealStorageDTOEmpty } from '@storage/meal/MealStorageDTOEmpty'
+import moment from 'moment'
+import { getCurrentDateTime } from '@utils/timeFormat/getCurrentDateTime'
 
 type RouteParams = {
   foodItem: MealStorageDTO
@@ -83,6 +85,25 @@ export function EditMeal() {
       }
 
       const momentDate = formatToMomentFormatDate(date)
+      const { dateTime, hourTime } = getCurrentDateTime()
+
+      const dayIsAfterPresent = moment(momentDate, 'YYYY-MM-DD').isAfter(
+        formatToMomentFormatDate(dateTime),
+      )
+
+      if (dayIsAfterPresent) {
+        return Alert.alert(
+          'Edit Meal',
+          'Date must be of present day or before.',
+        )
+      }
+
+      if (time > hourTime) {
+        return Alert.alert(
+          'Edit Meal',
+          'Time must be of present time or before.',
+        )
+      }
 
       await mealEdit({
         id: foodItem.id,

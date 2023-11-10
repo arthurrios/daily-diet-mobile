@@ -11,6 +11,7 @@ import { AppError } from '@utils/errors/AppError'
 import { mealCreate } from '@storage/meal/mealCreate'
 import { formatToMomentFormatDate } from '@utils/timeFormat/formatToMomentFormatDate'
 import uuid from 'react-native-uuid'
+import moment from 'moment'
 
 export function AddMeal() {
   const [healthy, setHealthy] = useState(false)
@@ -58,6 +59,25 @@ export function AddMeal() {
       }
 
       const momentDate = formatToMomentFormatDate(date)
+      const { dateTime, hourTime } = getCurrentDateTime()
+
+      const dayIsAfterPresent = moment(momentDate, 'YYYY-MM-DD').isAfter(
+        formatToMomentFormatDate(dateTime),
+      )
+
+      if (dayIsAfterPresent) {
+        return Alert.alert(
+          'Edit Meal',
+          'Date must be of present day or before.',
+        )
+      }
+
+      if (time > hourTime) {
+        return Alert.alert(
+          'Edit Meal',
+          'Time must be of present time or before.',
+        )
+      }
 
       await mealCreate({
         id: uuid.v4().toString(),
