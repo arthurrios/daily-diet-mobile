@@ -1,5 +1,5 @@
 /* eslint-disable no-useless-catch */
-import { formatListDateToMoment } from '@utils/formatListDateToMoment'
+import { formatListDateToMoment } from '@utils/timeFormat/formatListDateToMoment'
 import { mealsGetAll } from './mealsGetAll'
 
 export async function mealsGetByDate(date: string) {

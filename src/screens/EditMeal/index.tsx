@@ -13,10 +13,10 @@ import {
   useRoute,
 } from '@react-navigation/native'
 import { MealStorageDTO } from '@storage/meal/MealStorageDTO'
-import { formatStorageDate } from '@utils/formatStorageDate'
-import { AppError } from '@utils/AppError'
+import { formatStorageDate } from '@utils/timeFormat/formatStorageDate'
+import { AppError } from '@utils/errors/AppError'
 import { mealEdit } from '@storage/meal/mealEdit'
-import { formatToMomentFormatDate } from '@utils/formatToMomentFormatDate'
+import { formatToMomentFormatDate } from '@utils/timeFormat/formatToMomentFormatDate'
 
 type RouteParams = {
   foodItem: MealStorageDTO

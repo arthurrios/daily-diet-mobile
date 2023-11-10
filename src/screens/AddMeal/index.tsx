@@ -6,10 +6,10 @@ import { Select } from '@components/Select'
 import { Button } from '@components/Button'
 import { useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
-import { getCurrentDateTime } from '@utils/getCurrentDateTime'
-import { AppError } from '@utils/AppError'
+import { getCurrentDateTime } from '@utils/timeFormat/getCurrentDateTime'
+import { AppError } from '@utils/errors/AppError'
 import { mealCreate } from '@storage/meal/mealCreate'
-import { formatToMomentFormatDate } from '@utils/formatToMomentFormatDate'
+import { formatToMomentFormatDate } from '@utils/timeFormat/formatToMomentFormatDate'
 import uuid from 'react-native-uuid'
 
 export function AddMeal() {

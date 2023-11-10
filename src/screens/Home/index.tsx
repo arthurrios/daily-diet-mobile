@@ -8,11 +8,14 @@ import { useFocusEffect, useNavigation } from '@react-navigation/native'
 import { useCallback, useState } from 'react'
 import { Alert, FlatList } from 'react-native'
 import { mealsGetAll } from '@storage/meal/mealsGetAll'
-import { formatMomentDate } from '@utils/formatMomentDate'
+import { formatMomentDate } from '@utils/timeFormat/formatMomentDate'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { mainBalance } from '@storage/stats/mainBalance'
 
 export function Home() {
   const [dates, setDates] = useState<string[]>([])
+  const [balance, setBalance] = useState('')
+  const [healthy, setHealthy] = useState<boolean>()
 
   const navigation = useNavigation()
 
@@ -35,6 +38,21 @@ export function Home() {
     }
   }
 
+  async function healthBalanceStats() {
+    try {
+      const { healthBalance, healthStatus } = await mainBalance()
+
+      const healthyPercentage = String(
+        (healthBalance * 100).toFixed(2),
+      ).replace('.', ',')
+      setBalance(healthyPercentage)
+      setHealthy(healthStatus)
+    } catch (error) {
+      console.log(error)
+      Alert.alert('Stats', 'Error fetching stats')
+    }
+  }
+
   // async function clearAllData() {
   //   AsyncStorage.getAllKeys()
   //     .then((keys) => AsyncStorage.multiRemove(keys))
@@ -44,6 +62,7 @@ export function Home() {
   useFocusEffect(
     useCallback(() => {
       fetchMeals()
+      healthBalanceStats()
       // clearAllData()
     }, []),
   )
@@ -53,7 +72,10 @@ export function Home() {
       <Container edges={{ bottom: 'off', top: 'maximum' }}>
         <Header />
 
-        <Balance percentage="90,86" />
+        <Balance
+          percentage={balance}
+          type={healthy === true ? 'HEALTHY' : 'UNHEALTHY'}
+        />
 
         <ButtonLabel>Refeições</ButtonLabel>
         <Button

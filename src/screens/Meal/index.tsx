@@ -15,18 +15,13 @@ import { Alert, View } from 'react-native'
 import { PencilSimpleLine, Trash } from 'phosphor-react-native'
 import { Button } from '@components/Button'
 import { useTheme } from 'styled-components/native'
-import { useCallback, useState } from 'react'
+import { useState } from 'react'
 import { Modal } from '@components/Modal'
-import {
-  useFocusEffect,
-  useNavigation,
-  useRoute,
-} from '@react-navigation/native'
+import { useNavigation, useRoute } from '@react-navigation/native'
 import { MealStorageDTO } from '@storage/meal/MealStorageDTO'
-import { formatStorageDate } from '@utils/formatStorageDate'
-import { formatTimeToUS } from '@utils/formatTimeToUS'
-import { mealsGetAll } from '@storage/meal/mealsGetAll'
-import { AppError } from '@utils/AppError'
+import { formatStorageDate } from '@utils/timeFormat/formatStorageDate'
+import { formatTimeToUS } from '@utils/timeFormat/formatTimeToUS'
+import { AppError } from '@utils/errors/AppError'
 import { mealDelete } from '@storage/meal/mealDelete'
 
 type RouteParams = {
