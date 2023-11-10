@@ -1,16 +1,19 @@
 import { MealStorageDTO } from '@storage/meal/MealStorageDTO'
 import { mealsGetAll } from '@storage/meal/mealsGetAll'
+import { mealsSortByDate } from '@storage/meal/mealsSortByDate'
 
 export async function healthyStreak() {
   const storage = await mealsGetAll()
+  const storageSorted = storage.slice().sort(mealsSortByDate)
 
   let currentSequence: MealStorageDTO[] = []
   let maxSequence: MealStorageDTO[] = []
 
-  for (let i = 0; i < storage.length; i++) {
-    const currentObj = storage[i]
-    const prevObj = storage[i - 1]
+  for (let i = 0; i < storageSorted.length; i++) {
+    const currentObj = storageSorted[i]
+    const prevObj = storageSorted[i - 1]
     const currentValue = currentObj.healthy
+    const prevValue = prevObj?.healthy
 
     if (currentValue === true) {
       currentSequence.push(currentObj)
@@ -19,7 +22,7 @@ export async function healthyStreak() {
       currentSequence = []
     }
 
-    if (currentValue === true && prevObj.healthy === false) {
+    if (currentValue === true && prevValue === false) {
       currentSequence = []
     }
 

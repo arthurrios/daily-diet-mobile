@@ -83,7 +83,7 @@ export function Home() {
           onPress={() => handleStats()}
         />
 
-        <ButtonLabel>Refeições</ButtonLabel>
+        <ButtonLabel>Meals</ButtonLabel>
         <Button
           title="New meal"
           icon={<Plus size={18} color="#FFF" />}

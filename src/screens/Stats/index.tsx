@@ -10,7 +10,7 @@ import { healthyStreak } from '@storage/stats/healthyStreak'
 
 export function Stats() {
   const [balance, setBalance] = useState('')
-  const [healthy, setHealthy] = useState<boolean>()
+  const [healthy, setHealthy] = useState<boolean>(false)
   const [healthyMeals, setHealthyMeals] = useState<number>(0)
   const [unhealthyMeals, setUnhealthyMeals] = useState<number>(0)
   const [mealsTotalQuantity, setMealsTotalQuantity] = useState<number>(0)
@@ -37,6 +37,7 @@ export function Stats() {
       const healthyPercentage = String(
         (healthBalance * 100).toFixed(2),
       ).replace('.', ',')
+
       setBalance(healthyPercentage)
       setHealthy(healthStatus)
       setHealthyMeals(healthyMealsQuantity)
