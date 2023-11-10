@@ -9,7 +9,7 @@ import { useCallback, useState } from 'react'
 import { Alert, FlatList } from 'react-native'
 import { mealsGetAll } from '@storage/meal/mealsGetAll'
 import { formatMomentDate } from '@utils/timeFormat/formatMomentDate'
-import AsyncStorage from '@react-native-async-storage/async-storage'
+// import AsyncStorage from '@react-native-async-storage/async-storage'
 import { mainBalance } from '@storage/stats/mainBalance'
 
 export function Home() {
@@ -21,6 +21,10 @@ export function Home() {
 
   function handleAddMeal() {
     navigation.navigate('addMeal')
+  }
+
+  function handleStats() {
+    navigation.navigate('stats')
   }
 
   async function fetchMeals() {
@@ -53,6 +57,7 @@ export function Home() {
     }
   }
 
+  // Clear Storage:
   // async function clearAllData() {
   //   AsyncStorage.getAllKeys()
   //     .then((keys) => AsyncStorage.multiRemove(keys))
@@ -75,6 +80,7 @@ export function Home() {
         <Balance
           percentage={balance}
           type={healthy === true ? 'HEALTHY' : 'UNHEALTHY'}
+          onPress={() => handleStats()}
         />
 
         <ButtonLabel>Refeições</ButtonLabel>

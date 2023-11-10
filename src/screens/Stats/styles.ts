@@ -26,7 +26,7 @@ export const Arrow = styled(ArrowLeft).attrs<Props>(({ theme, type }) => ({
   color: type === 'HEALTHY' ? theme.COLORS.GREEN_800 : theme.COLORS.RED_800,
 }))`
   position: absolute;
-  left: 32px;
+  top: 64px;
 `
 
 export const Percentage = styled.Text`

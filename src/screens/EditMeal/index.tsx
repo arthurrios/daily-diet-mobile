@@ -17,13 +17,14 @@ import { formatStorageDate } from '@utils/timeFormat/formatStorageDate'
 import { AppError } from '@utils/errors/AppError'
 import { mealEdit } from '@storage/meal/mealEdit'
 import { formatToMomentFormatDate } from '@utils/timeFormat/formatToMomentFormatDate'
+import { MealStorageDTOEmpty } from '@storage/meal/MealStorageDTOEmpty'
 
 type RouteParams = {
   foodItem: MealStorageDTO
 }
 
 export function EditMeal() {
-  const [meal, setMeal] = useState<MealStorageDTO>({})
+  const [meal, setMeal] = useState<MealStorageDTO>(MealStorageDTOEmpty)
   const [healthy, setHealthy] = useState(false)
   const [unhealthy, setUnhealthy] = useState(false)
 

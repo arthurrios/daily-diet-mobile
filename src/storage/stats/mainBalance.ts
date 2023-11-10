@@ -8,8 +8,11 @@ export async function mainBalance() {
 
   let healthStatus
 
-  const healthBalance =
-    healthyMeals.length / (unhealthyMeals.length + healthyMeals.length)
+  const mealsTotal = storage.length
+  const healthyMealsQuantity = healthyMeals.length
+  const unhealthyMealsQuantity = unhealthyMeals.length
+
+  const healthBalance = healthyMealsQuantity / mealsTotal
 
   if (healthBalance >= 0.7) {
     healthStatus = true
@@ -17,5 +20,11 @@ export async function mainBalance() {
     healthStatus = false
   }
 
-  return { healthStatus, healthBalance }
+  return {
+    healthStatus,
+    healthBalance,
+    healthyMealsQuantity,
+    unhealthyMealsQuantity,
+    mealsTotal,
+  }
 }

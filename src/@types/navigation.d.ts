@@ -11,6 +11,7 @@ export declare global {
       editMeal: {
         foodItem: MealStorageDTO
       }
+      stats: undefined
     }
   }
 }
